@@ -150,7 +150,6 @@ const km: Dict = {
 const vi: Dict = {
   ...en,
   app_subtitle: "Cờ Ốc Khmer cổ truyền",
-  welcome_greiting: "Xin chào!",
   welcome_greeting: "Xin chào!",
   welcome_tagline: "Tôi là Hanuman, người dẫn đường bạn vào ván cờ hoàng gia Angkor.",
   choose_language: "Chọn ngôn ngữ của bạn",
