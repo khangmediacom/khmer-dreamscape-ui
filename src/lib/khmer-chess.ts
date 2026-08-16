@@ -61,7 +61,7 @@ export function initialBoard(): Board {
 }
 
 export function squareName(i: number) {
-  return "abcdefgh"[col(i)] + (8 - row(i));
+  return "abcdefgh".charAt(col(i)) + (8 - row(i));
 }
 
 function pseudoMoves(board: Board, from: number): number[] {
@@ -97,7 +97,7 @@ function pseudoMoves(board: Board, from: number): number[] {
       push(r + forward, c);
       break;
     case "n":
-      for (const [dr, dc] of [
+      const jumps: [number, number][] = [
         [1, 2],
         [2, 1],
         [-1, 2],
@@ -106,16 +106,17 @@ function pseudoMoves(board: Board, from: number): number[] {
         [2, -1],
         [-1, -2],
         [-2, -1],
-      ])
-        push(r + dr, c + dc);
+      ];
+      for (const [dr, dc] of jumps) push(r + dr, c + dc);
       break;
     case "r":
-      for (const [dr, dc] of [
+      const dirs: [number, number][] = [
         [1, 0],
         [-1, 0],
         [0, 1],
         [0, -1],
-      ]) {
+      ];
+      for (const [dr, dc] of dirs) {
         let rr = r + dr;
         let cc = c + dc;
         while (inside(rr, cc)) {
@@ -220,7 +221,7 @@ export function bestMove(board: Board, color: Color, depth: number) {
       s: (board[m.to] ? PIECE_NAMES[board[m.to]!.type].value * 10 : 0) + Math.random() * 6,
     }));
     scored.sort((a, b) => b.s - a.s);
-    return scored[0].m;
+    return scored[0]!.m;
   }
 
   const search = (b: Board, c: Color, d: number, alpha: number, beta: number): number => {
@@ -238,7 +239,7 @@ export function bestMove(board: Board, color: Color, depth: number) {
   };
 
   let bestScore = -Infinity;
-  let choice = moves[0];
+  let choice = moves[0]!;
   const ordered = moves
     .map((m) => ({ m, cap: board[m.to] ? PIECE_NAMES[board[m.to]!.type].value : 0 }))
     .sort((a, b) => b.cap - a.cap)
