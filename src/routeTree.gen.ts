@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as PlayRouteImport } from './routes/play'
 import { Route as TacticsRouteImport } from './routes/tactics'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlayRoute = PlayRouteImport.update({
@@ -38,12 +44,14 @@ const TacticsRoute = TacticsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/play': typeof PlayRoute
   '/tactics': typeof TacticsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/play': typeof PlayRoute
   '/tactics': typeof TacticsRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/play': typeof PlayRoute
   '/tactics': typeof TacticsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/play' | '/tactics'
+  fullPaths: '/' | '/home' | '/leaderboard' | '/play' | '/tactics'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/play' | '/tactics'
-  id: '__root__' | '/' | '/home' | '/play' | '/tactics'
+  to: '/' | '/home' | '/leaderboard' | '/play' | '/tactics'
+  id: '__root__' | '/' | '/home' | '/leaderboard' | '/play' | '/tactics'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
+  LeaderboardRoute: typeof LeaderboardRoute
   PlayRoute: typeof PlayRoute
   TacticsRoute: typeof TacticsRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/play': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
+  LeaderboardRoute: LeaderboardRoute,
   PlayRoute: PlayRoute,
   TacticsRoute: TacticsRoute,
 }
