@@ -28,7 +28,7 @@ const MATCHES: { id: string; opponent: string; result: "win" | "loss" | "draw"; 
   { id: "m2", opponent: "Sokha Chan", result: "loss", moves: 61, date: "2026-08-15" },
   { id: "m3", opponent: "Local 2P", result: "draw", moves: 74, date: "2026-08-13" },
   { id: "m4", opponent: "Hanuman AI · Apprentice", result: "win", moves: 35, date: "2026-08-11" },
-] as const;
+];
 
 const TONE = {
   win: "border-jade/40 bg-jade/10 text-jade",
