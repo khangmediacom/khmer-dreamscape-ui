@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as PlayRouteImport } from './routes/play'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TacticsRouteImport } from './routes/tactics'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const PlayRoute = PlayRouteImport.update({
   path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TacticsRoute = TacticsRouteImport.update({
   id: '/tactics',
   path: '/tactics',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRoute
   '/leaderboard': typeof LeaderboardRoute
   '/play': typeof PlayRoute
+  '/settings': typeof SettingsRoute
   '/tactics': typeof TacticsRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/home': typeof HomeRoute
   '/leaderboard': typeof LeaderboardRoute
   '/play': typeof PlayRoute
+  '/settings': typeof SettingsRoute
   '/tactics': typeof TacticsRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,22 @@ export interface FileRoutesById {
   '/home': typeof HomeRoute
   '/leaderboard': typeof LeaderboardRoute
   '/play': typeof PlayRoute
+  '/settings': typeof SettingsRoute
   '/tactics': typeof TacticsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/leaderboard' | '/play' | '/tactics'
+  fullPaths: '/' | '/home' | '/leaderboard' | '/play' | '/settings' | '/tactics'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/leaderboard' | '/play' | '/tactics'
-  id: '__root__' | '/' | '/home' | '/leaderboard' | '/play' | '/tactics'
+  to: '/' | '/home' | '/leaderboard' | '/play' | '/settings' | '/tactics'
+  id:
+    | '__root__'
+    | '/'
+    | '/home'
+    | '/leaderboard'
+    | '/play'
+    | '/settings'
+    | '/tactics'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +92,7 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRoute
   LeaderboardRoute: typeof LeaderboardRoute
   PlayRoute: typeof PlayRoute
+  SettingsRoute: typeof SettingsRoute
   TacticsRoute: typeof TacticsRoute
 }
 
@@ -109,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tactics': {
       id: '/tactics'
       path: '/tactics'
@@ -124,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRoute,
   LeaderboardRoute: LeaderboardRoute,
   PlayRoute: PlayRoute,
+  SettingsRoute: SettingsRoute,
   TacticsRoute: TacticsRoute,
 }
 export const routeTree = rootRouteImport
