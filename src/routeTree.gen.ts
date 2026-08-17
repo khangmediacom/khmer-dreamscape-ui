@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as OnlineRouteImport } from './routes/online'
 import { Route as PlayRouteImport } from './routes/play'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TacticsRouteImport } from './routes/tactics'
@@ -29,6 +30,11 @@ const HomeRoute = HomeRouteImport.update({
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
   path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnlineRoute = OnlineRouteImport.update({
+  id: '/online',
+  path: '/online',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlayRoute = PlayRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/online': typeof OnlineRoute
   '/play': typeof PlayRoute
   '/settings': typeof SettingsRoute
   '/tactics': typeof TacticsRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/online': typeof OnlineRoute
   '/play': typeof PlayRoute
   '/settings': typeof SettingsRoute
   '/tactics': typeof TacticsRoute
@@ -68,20 +76,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/home': typeof HomeRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/online': typeof OnlineRoute
   '/play': typeof PlayRoute
   '/settings': typeof SettingsRoute
   '/tactics': typeof TacticsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/home' | '/leaderboard' | '/play' | '/settings' | '/tactics'
+  fullPaths:
+    | '/'
+    | '/home'
+    | '/leaderboard'
+    | '/online'
+    | '/play'
+    | '/settings'
+    | '/tactics'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/home' | '/leaderboard' | '/play' | '/settings' | '/tactics'
+  to:
+    | '/'
+    | '/home'
+    | '/leaderboard'
+    | '/online'
+    | '/play'
+    | '/settings'
+    | '/tactics'
   id:
     | '__root__'
     | '/'
     | '/home'
     | '/leaderboard'
+    | '/online'
     | '/play'
     | '/settings'
     | '/tactics'
@@ -91,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRoute
   LeaderboardRoute: typeof LeaderboardRoute
+  OnlineRoute: typeof OnlineRoute
   PlayRoute: typeof PlayRoute
   SettingsRoute: typeof SettingsRoute
   TacticsRoute: typeof TacticsRoute
@@ -117,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/leaderboard'
       fullPath: '/leaderboard'
       preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/online': {
+      id: '/online'
+      path: '/online'
+      fullPath: '/online'
+      preLoaderRoute: typeof OnlineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/play': {
@@ -147,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRoute,
   LeaderboardRoute: LeaderboardRoute,
+  OnlineRoute: OnlineRoute,
   PlayRoute: PlayRoute,
   SettingsRoute: SettingsRoute,
   TacticsRoute: TacticsRoute,
