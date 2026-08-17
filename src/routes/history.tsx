@@ -23,7 +23,7 @@ export const Route = createFileRoute("/history")({
   component: HistoryPage,
 });
 
-const MATCHES = [
+const MATCHES: { id: string; opponent: string; result: "win" | "loss" | "draw"; moves: number; date: string }[] = [
   { id: "m1", opponent: "Hanuman AI · Master", result: "win", moves: 48, date: "2026-08-16" },
   { id: "m2", opponent: "Sokha Chan", result: "loss", moves: 61, date: "2026-08-15" },
   { id: "m3", opponent: "Local 2P", result: "draw", moves: 74, date: "2026-08-13" },
