@@ -1,10 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bot, Home, Lightbulb, RotateCcw, Repeat, Swords, Undo2, Users } from "lucide-react";
+import {
+  Bot,
+  Copy,
+  Download,
+  Home,
+  Lightbulb,
+  RotateCcw,
+  Repeat,
+  Share2,
+  Swords,
+  Undo2,
+  Users,
+} from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { AppShell, SectionTitle } from "../components/AppShell";
 import { CapturedRow, ChessBoard } from "../components/ChessBoard";
 import { useI18n } from "../lib/i18n";
+import {
+  copyText,
+  downloadText,
+  plyToNotation,
+  toFEN,
+  toPGN,
+  type Ply,
+} from "../lib/khmer-chess-export";
 import {
   GLYPHS,
   allLegalMoves,
