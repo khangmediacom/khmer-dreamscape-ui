@@ -78,10 +78,11 @@ function PlayPage() {
   const [selected, setSelected] = useState<number | null>(null);
   const [lastMove, setLastMove] = useState<{ from: number; to: number } | null>(null);
   const [flipped, setFlipped] = useState(false);
-  const [moves, setMoves] = useState<string[]>([]);
+  const [plies, setPlies] = useState<Ply[]>([]);
   const [captured, setCaptured] = useState<{ w: string[]; b: string[] }>({ w: [], b: [] });
   const [thinking, setThinking] = useState(false);
   const [hint, setHint] = useState<number[]>([]);
+  const [copyState, setCopyState] = useState<"idle" | "ok" | "fail">("idle");
 
   const board = history[history.length - 1]!;
   const state = useMemo(() => status(board, turn), [board, turn]);
@@ -89,14 +90,32 @@ function PlayPage() {
   const checkSquare =
     state === "check" || state === "checkmate" ? findKing(board, turn) : null;
 
+  const fen = useMemo(
+    () => toFEN(board, turn, Math.floor(plies.length / 2) + 1),
+    [board, turn, plies.length],
+  );
+
+  const pgn = useMemo(
+    () =>
+      toPGN(plies, {
+        event: mode === "ai" ? `Ouk Chatrang vs AI (${LEVELS[depth - 1]?.key ?? "ai"})` : "Ouk Chatrang local match",
+        white: "White",
+        black: mode === "ai" ? "Hanuman AI" : "Black",
+        result:
+          state === "checkmate" ? (turn === "w" ? "0-1" : "1-0") : state === "stalemate" ? "1/2-1/2" : "*",
+      }),
+    [plies, mode, depth, state, turn],
+  );
+
   const reset = useCallback(() => {
     setHistory([initialBoard()]);
     setTurn("w");
     setSelected(null);
     setLastMove(null);
-    setMoves([]);
+    setPlies([]);
     setCaptured({ w: [], b: [] });
     setHint([]);
+    setCopyState("idle");
   }, []);
 
   const commit = useCallback(
@@ -107,7 +126,17 @@ function PlayPage() {
       const taken = b[to];
       const next = applyMove(b, from, to);
       setHistory((h) => [...h, next]);
-      setMoves((m) => [...m, `${GLYPHS[piece.type]} ${squareName(from)}→${squareName(to)}`]);
+      setPlies((m) => [
+        ...m,
+        {
+          from,
+          to,
+          type: piece.type,
+          color: piece.color,
+          captured: taken ? taken.type : null,
+          promotion: next[to]!.type !== piece.type,
+        },
+      ]);
       if (taken) {
         setCaptured((c) => ({
           ...c,
@@ -121,6 +150,16 @@ function PlayPage() {
     },
     [history],
   );
+
+  const share = useCallback(
+    async (text: string) => {
+      const ok = await copyText(text);
+      setCopyState(ok ? "ok" : "fail");
+      setTimeout(() => setCopyState("idle"), 1600);
+    },
+    [],
+  );
+
 
   useEffect(() => {
     if (!started || mode !== "ai" || turn !== "b") return;
