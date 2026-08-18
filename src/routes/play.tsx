@@ -339,14 +339,63 @@ function PlayPage() {
         <div className="mt-4">
           <SectionTitle>{t("move_history")}</SectionTitle>
           <ol className="grid grid-cols-2 gap-1 rounded-2xl border border-border bg-card p-3 text-[11px] text-muted-foreground">
-            {moves.length === 0 ? <li>—</li> : null}
-            {moves.map((m, i) => (
-              <li key={`${m}-${i}`} className="truncate">
-                <span className="text-gold-dark">{i + 1}.</span> {m}
+            {plies.length === 0 ? <li>—</li> : null}
+            {plies.map((p, i) => (
+              <li key={`${p.from}-${p.to}-${i}`} className="truncate">
+                <span className="text-gold-dark">{i + 1}.</span> {GLYPHS[p.type]}{" "}
+                {squareName(p.from)}→{squareName(p.to)}
               </li>
             ))}
           </ol>
         </div>
+
+        <div className="mt-4">
+          <SectionTitle icon={Share2}>{t("export_share")}</SectionTitle>
+          <div className="rounded-2xl border border-border bg-card p-3">
+            <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
+              {t("current_position")}
+            </p>
+            <code className="mt-1 block break-all rounded-lg bg-secondary/60 p-2 font-mono text-[10px] text-foreground">
+              {fen}
+            </code>
+            <div className="mt-2 grid grid-cols-3 gap-2">
+              {(
+                [
+                  { key: "copy_fen", icon: Copy, fn: () => share(fen) },
+                  { key: "copy_pgn", icon: Copy, fn: () => share(pgn) },
+                  {
+                    key: "download_pgn",
+                    icon: Download,
+                    fn: () => downloadText(`ouk-chatrang-${Date.now()}.pgn`, pgn),
+                  },
+                ] as const
+              ).map((b) => (
+                <button
+                  key={b.key}
+                  type="button"
+                  onClick={b.fn}
+                  className="flex flex-col items-center gap-1 rounded-xl border border-gold/40 bg-gold/10 py-2 text-[10px] font-medium text-gold-dark transition-all duration-300 hover:border-gold active:scale-95"
+                >
+                  <b.icon className="h-4 w-4" />
+                  {t(b.key)}
+                </button>
+              ))}
+            </div>
+            <p
+              aria-live="polite"
+              className="mt-2 min-h-4 text-center text-[10px] font-semibold text-gold-dark"
+            >
+              {copyState === "ok" ? t("copied") : copyState === "fail" ? t("copy_failed") : ""}
+            </p>
+            <pre className="mt-2 max-h-32 overflow-auto whitespace-pre-wrap rounded-lg bg-secondary/40 p-2 font-mono text-[9px] leading-relaxed text-muted-foreground">
+              {pgn}
+            </pre>
+            {plies.length ? (
+              <p className="sr-only">{plyToNotation(plies[plies.length - 1]!)}</p>
+            ) : null}
+          </div>
+        </div>
+
 
         <div className="mt-4 flex gap-2">
           <button
