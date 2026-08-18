@@ -193,7 +193,7 @@ function PlayPage() {
     if (history.length < 2) return;
     const back = mode === "ai" && history.length > 2 ? 2 : 1;
     setHistory((h) => h.slice(0, h.length - back));
-    setMoves((m) => m.slice(0, m.length - back));
+    setPlies((m) => m.slice(0, m.length - back));
     setLastMove(null);
     setSelected(null);
     setHint([]);
