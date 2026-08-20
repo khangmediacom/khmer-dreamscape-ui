@@ -8,20 +8,25 @@ import {
   type ReactNode,
 } from "react";
 
-export type Lang = "km" | "en" | "vi" | "fr";
+export type Lang = "km" | "en" | "vi" | "fr" | "th" | "zh";
 
 export const LANGUAGES: { code: Lang; name: string; native: string; flag: string }[] = [
   { code: "km", name: "Khmer", native: "ភាសាខ្មែរ", flag: "🇰🇭" },
   { code: "en", name: "English", native: "English", flag: "🇬🇧" },
   { code: "vi", name: "Vietnamese", native: "Tiếng Việt", flag: "🇻🇳" },
   { code: "fr", name: "French", native: "Français", flag: "🇫🇷" },
+  { code: "th", name: "Thai", native: "ภาษาไทย", flag: "🇹🇭" },
+  { code: "zh", name: "Chinese", native: "简体中文", flag: "🇨🇳" },
 ];
+
 
 type Dict = Record<string, string>;
 
 const en: Dict = {
   app_title: "Ouk Chatrang",
   app_subtitle: "Ancient Khmer Chess",
+  splash_title: "KHMER OUK",
+  splash_subtitle: "Ouk Chatrang • Angkor",
   welcome_greeting: "Sursdey!",
   welcome_tagline: "I am Hanuman, your guide through the royal game of Angkor.",
   choose_language: "Choose your language",
@@ -122,6 +127,8 @@ const en: Dict = {
 const km: Dict = {
   ...en,
   app_subtitle: "អុកចត្រង្គខ្មែរបុរាណ",
+  splash_title: "ខ្មែរ អុក",
+  splash_subtitle: "អុកចត្រង្គ • អង្គរ",
   welcome_greeting: "សួស្តី!",
   welcome_tagline: "ខ្ញុំគឺហនុមាន នឹងនាំអ្នកទៅកាន់ល្បែងព្រះរាជានៃអង្គរ។",
   choose_language: "ជ្រើសរើសភាសា",
@@ -157,6 +164,8 @@ const km: Dict = {
 const vi: Dict = {
   ...en,
   app_subtitle: "Cờ Ốc Khmer cổ truyền",
+  splash_title: "KHMER OUK",
+  splash_subtitle: "Cờ Ốc • Angkor",
   welcome_greeting: "Xin chào!",
   welcome_tagline: "Tôi là Hanuman, người dẫn đường bạn vào ván cờ hoàng gia Angkor.",
   choose_language: "Chọn ngôn ngữ của bạn",
@@ -257,6 +266,8 @@ const vi: Dict = {
 const fr: Dict = {
   ...en,
   app_subtitle: "Échecs khmers anciens",
+  splash_title: "KHMER OUK",
+  splash_subtitle: "Ouk Chatrang • Angkor",
   welcome_greeting: "Bonjour !",
   welcome_tagline: "Je suis Hanuman, votre guide dans le jeu royal d'Angkor.",
   choose_language: "Choisissez votre langue",
@@ -290,7 +301,54 @@ const fr: Dict = {
   dark_mode: "Thème temple nocturne",
 };
 
-const DICTS: Record<Lang, Dict> = { en, km, vi, fr };
+const th: Dict = {
+  ...en,
+  app_subtitle: "หมากรุกเขมรโบราณ",
+  splash_title: "KHMER OUK",
+  splash_subtitle: "อุกจตรงค์ • อังกอร์",
+  home: "หน้าแรก",
+  play: "เล่น",
+  learn: "เรียน",
+  ranks: "อันดับ",
+  settings: "ตั้งค่า",
+  your_turn: "ตาของคุณ",
+  check: "รุก!",
+  checkmate: "รุกจน!",
+  white: "ฝ่ายขาว",
+  black: "ฝ่ายดำ",
+  new_game: "เกมใหม่",
+  undo: "ย้อนกลับ",
+  hint: "คำแนะนำ",
+  resign: "ยอมแพ้",
+  language_section: "ภาษา",
+  dark_mode: "ธีมปราสาทกลางคืน",
+};
+
+const zh: Dict = {
+  ...en,
+  app_subtitle: "古代高棉象棋",
+  splash_title: "KHMER OUK",
+  splash_subtitle: "高棉象棋 • 吴哥",
+  home: "首页",
+  play: "对局",
+  learn: "学习",
+  ranks: "排行",
+  settings: "设置",
+  your_turn: "轮到你了",
+  check: "将军！",
+  checkmate: "将死！",
+  white: "白方",
+  black: "黑方",
+  new_game: "新对局",
+  undo: "撤销",
+  hint: "提示",
+  resign: "认输",
+  language_section: "语言",
+  dark_mode: "夜间吴哥主题",
+};
+
+const DICTS: Record<Lang, Dict> = { en, km, vi, fr, th, zh };
+
 
 const STORAGE_KEY = "ouk.lang";
 

@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../lib/i18n";
 import { SettingsProvider } from "../lib/settings";
+import { SplashScreen } from "../components/SplashScreen";
+
 
 function NotFoundComponent() {
   return (
@@ -127,8 +129,10 @@ function RootComponent() {
         <SettingsProvider>
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />
+          <SplashScreen />
         </SettingsProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );
+
 }
