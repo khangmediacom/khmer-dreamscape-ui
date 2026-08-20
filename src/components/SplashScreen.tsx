@@ -34,7 +34,6 @@ export function SplashScreen() {
     return () => window.clearTimeout(id);
   }, [phase]);
 
-
   if (phase === "hidden") return null;
 
   return (
@@ -56,7 +55,7 @@ export function SplashScreen() {
         />
       </div>
       <div className="splash-text mt-6 flex flex-col items-center">
-        <p className="font-serif text-2xl font-bold uppercase tracking-[0.28em] text-gold">
+        <p className="font-serif text-2xl font-bold uppercase tracking-[0.28em] text-gold-light">
           {t("splash_title")}
         </p>
         <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold/80">

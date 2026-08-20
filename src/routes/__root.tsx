@@ -15,7 +15,6 @@ import { LanguageProvider } from "../lib/i18n";
 import { SettingsProvider } from "../lib/settings";
 import { SplashScreen } from "../components/SplashScreen";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -134,5 +133,4 @@ function RootComponent() {
       </LanguageProvider>
     </QueryClientProvider>
   );
-
 }

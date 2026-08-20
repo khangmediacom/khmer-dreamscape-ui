@@ -19,7 +19,6 @@ export const LANGUAGES: { code: Lang; name: string; native: string; flag: string
   { code: "zh", name: "Chinese", native: "简体中文", flag: "🇨🇳" },
 ];
 
-
 type Dict = Record<string, string>;
 
 const en: Dict = {
@@ -348,7 +347,6 @@ const zh: Dict = {
 };
 
 const DICTS: Record<Lang, Dict> = { en, km, vi, fr, th, zh };
-
 
 const STORAGE_KEY = "ouk.lang";
 
