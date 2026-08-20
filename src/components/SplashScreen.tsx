@@ -59,7 +59,7 @@ export function SplashScreen() {
         <p className="font-serif text-2xl font-bold uppercase tracking-[0.28em] text-gold">
           {t("splash_title")}
         </p>
-        <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold-light/70">
+        <p className="mt-2 text-[11px] uppercase tracking-[0.22em] text-gold/80">
           {t("splash_subtitle")}
         </p>
       </div>
